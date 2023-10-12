@@ -31,7 +31,7 @@ Before running the application, make sure you have the following installed:
 2. **Install Dependencies:**
 
 ```sh
-cd online-clothing-store-api
+cd online-clothing-store
 npm install
 ```
 
