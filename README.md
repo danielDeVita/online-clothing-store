@@ -23,7 +23,7 @@ Before running the application, make sure you have the following installed:
 1. **Clone the repository:**
 
    ```sh
-   git clone https://github.com/your/repository.git
+   git clone https://github.com/danielDeVita/online-clothing-store/blob/main/README.md
 
 
    ```
