@@ -21,6 +21,14 @@ export class AuthService {
 
   async register(registerAuthDto: RegisterAuthDto) {
     const { password } = registerAuthDto;
+    const foundUser = await this.userModel.findOne({
+      email: registerAuthDto.email,
+    });
+    if (foundUser)
+      throw new HttpException(
+        `Email ${registerAuthDto.email} is already registered`,
+        HttpStatus.BAD_REQUEST,
+      );
     const hashedPassword = bcrypt.hashSync(password, 10);
     registerAuthDto.password = hashedPassword;
     return await this.userModel.create(registerAuthDto);
@@ -42,7 +50,7 @@ export class AuthService {
     const token = this.jwtService.sign(payload);
 
     return {
-      user: foundUser,
+      user: { email: foundUser.email, id: foundUser.id },
       token,
     };
   }
