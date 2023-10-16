@@ -42,7 +42,9 @@ export class OrderService {
   }
 
   async update(id: string, updateOrderDto: UpdateOrderDto) {
-    let total = 0;
+    const foundOrder = await this.orderModel.findById(id);
+    let total = foundOrder.total;
+    /* let total = 0; */
     if (updateOrderDto.products && updateOrderDto.products.length > 0) {
       const products = await Promise.all(
         updateOrderDto.products.map((productId) =>
@@ -50,10 +52,11 @@ export class OrderService {
         ),
       );
       total = products.reduce((sum, product) => sum + product.price, 0);
-    } else {
-      const order = await this.orderModel.findById(id);
-      total = order.total;
     }
+    // } else {
+    //  /*  const order = await this.orderModel.findById(id);
+    //   total = order.total; */
+    // }
 
     const order = await this.orderModel.findByIdAndUpdate(
       id,
@@ -70,9 +73,5 @@ export class OrderService {
     const order = await this.orderModel.findByIdAndDelete(id);
     if (!order) throw new NotFoundException(`Order with id ${id} not found`);
     return { message: 'Order deleted', order };
-  }
-
-  private calculateOrderTotal(products: any[]): number {
-    return products.reduce((acc, product) => acc + product.price, 0);
   }
 }
