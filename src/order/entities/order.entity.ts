@@ -11,7 +11,11 @@ export class Order extends Document {
   products: Types.Array<Product>;
   @Prop()
   total: number;
-  @Prop()
+  @Prop({
+    required: true,
+    enum: ['pending', 'shipped', 'delivered'],
+    default: 'pending',
+  })
   status: string;
 }
 
