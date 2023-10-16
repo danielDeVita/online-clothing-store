@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsPositive, IsString } from 'class-validator';
+import { IsNumber, IsPositive, IsString, IsMongoId } from 'class-validator';
 
 export class CreateProductDto {
   @ApiProperty()
@@ -27,4 +27,7 @@ export class CreateProductDto {
   @ApiProperty()
   @IsString()
   readonly brand: string;
+  @ApiProperty()
+  @IsMongoId()
+  readonly category: string;
 }
