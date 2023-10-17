@@ -13,10 +13,12 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { AuthGuard } from 'src/auth/authGuard';
 
 @ApiBearerAuth()
 @ApiTags('Product')
-@UseGuards(JwtAuthGuard)
+/* @UseGuards(JwtAuthGuard) */
+
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
@@ -30,6 +32,7 @@ export class ProductController {
     return this.productService.create(createProductDto);
   }
 
+  @UseGuards(AuthGuard)
   @Get()
   @ApiOperation({
     summary: 'Fetch all products',
