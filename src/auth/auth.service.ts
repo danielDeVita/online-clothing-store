@@ -11,25 +11,17 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from 'src/user/entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
-import { TokenManager } from './tokenManager';
+import TokenManager from './tokenManager';
 
 @Injectable()
 export class AuthService {
-
-
-  private tokenManager: TokenManager;
-
-
+  // private tokenManager: TokenManager;
 
   constructor(
     @InjectModel(User.name) private userModel: Model<User>,
     private jwtService: JwtService,
   ) {
-
-
-    this.tokenManager = new TokenManager('LALALA');
-
-
+    // this.tokenManager = new TokenManager('LALALA');
   }
 
   async register(registerAuthDto: RegisterAuthDto) {
@@ -81,40 +73,36 @@ export class AuthService {
       throw new HttpException('Invalid password', HttpStatus.BAD_REQUEST);
 
     const token = this.generateToken(foundUser.id);
+    console.log('token at login:', token);
 
     return {
       user: { email: foundUser.email, id: foundUser.id },
       token,
     };
-}
-
-
+  }
 
   generateToken(userId: string): string {
-    return this.tokenManager.createToken(userId);
+    return TokenManager.sign(userId);
   }
 
   async verifyToken(token: string) {
     if (!token) {
       throw new HttpException('No token provided', HttpStatus.UNAUTHORIZED);
     }
-  
+
     const [data, receivedSignature] = token.split(':');
     const [userId, timestamp] = data.split(':');
-    const expectedSignature = this.tokenManager.createToken(userId);
-  
+    const expectedSignature = TokenManager.sign(userId);
+
     if (receivedSignature !== expectedSignature) {
       throw new HttpException('Invalid token', HttpStatus.UNAUTHORIZED);
     }
-  
-    
+
     const user = await this.userModel.findById(userId);
     if (!user) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
-  
-   
+
     return user;
   }
-  
 }

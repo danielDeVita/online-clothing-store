@@ -1,15 +1,15 @@
 import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { Request } from 'express';
-import { TokenManager } from './tokenManager'; // Ensure the path is correct
+import TokenManager from './tokenManager'; 
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  private tokenManager: TokenManager;
+  // private tokenManager: TokenManager;
 
-  constructor() {
-    this.tokenManager = new TokenManager('LALALA');
-  }
+  // constructor() {
+  //   this.tokenManager = new TokenManager();
+  // }
 
   canActivate(
     context: ExecutionContext,
@@ -19,7 +19,8 @@ export class AuthGuard implements CanActivate {
 
     if (!token) return false;
 
-    const verifiedToken = this.tokenManager.verifyToken(token);
+    // const verifiedToken = this.tokenManager.verify(token);
+    const verifiedToken = TokenManager.verify(token, 'LALALA');
 
     return !!verifiedToken;
   }
