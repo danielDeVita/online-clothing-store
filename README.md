@@ -10,6 +10,12 @@ The Online Clothing Store API is a RESTful API built with Nest.js, MongoDB, and 
 - Category Management
 - Order Processing
 
+## DB Architecture
+
+- One user can have many orders
+- Many orders can have many products
+- Many products have one category
+
 ## Prerequisites
 
 Before running the application, make sure you have the following installed:
