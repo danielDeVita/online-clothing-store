@@ -18,8 +18,6 @@ import { AuthGuard } from 'src/auth/authGuard';
 
 @ApiBearerAuth()
 @ApiTags('Product')
-/* @UseGuards(JwtAuthGuard) */
-
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
@@ -34,7 +32,7 @@ export class ProductController {
   }
 
   /* @UseGuards(AuthGuard) */
-  @UseGuards(JwtAuthGuard)
+  /* @UseGuards(JwtAuthGuard) */
   @Get()
   @ApiOperation({
     summary: 'Fetch all products',
