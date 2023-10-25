@@ -39,28 +39,28 @@ export class AuthService {
     return await this.userModel.create(registerAuthDto);
   }
 
-  // async login(loginAuthDto: LoginAuthDto) {
-  //   const { email } = loginAuthDto;
-  //   const foundUser = await this.userModel.findOne({ email });
-  //   if (!foundUser)
-  //     throw new NotFoundException(`User with email ${email} not found`);
-  //   const isValidPassword = bcrypt.compareSync(
-  //     loginAuthDto.password,
-  //     foundUser.password,
-  //   );
-  //   if (!isValidPassword)
-  //     throw new HttpException('Invalid password', HttpStatus.BAD_REQUEST);
-
-  //   const payload = { id: foundUser.id, email: foundUser.email };
-  //   const token = this.jwtService.sign(payload);
-
-  //   return {
-  //     user: { email: foundUser.email, id: foundUser.id },
-  //     token,
-  //   };
-  // }
-
   async login(loginAuthDto: LoginAuthDto) {
+    const { email } = loginAuthDto;
+    const foundUser = await this.userModel.findOne({ email });
+    if (!foundUser)
+      throw new NotFoundException(`User with email ${email} not found`);
+    const isValidPassword = bcrypt.compareSync(
+      loginAuthDto.password,
+      foundUser.password,
+    );
+    if (!isValidPassword)
+      throw new HttpException('Invalid password', HttpStatus.BAD_REQUEST);
+
+    const payload = { id: foundUser.id, email: foundUser.email };
+    const token = this.jwtService.sign(payload);
+
+    return {
+      user: { email: foundUser.email, id: foundUser.id },
+      token,
+    };
+  }
+
+ /*  async login(loginAuthDto: LoginAuthDto) {
     const { email } = loginAuthDto;
     const foundUser = await this.userModel.findOne({ email });
     if (!foundUser)
@@ -104,5 +104,5 @@ export class AuthService {
     }
 
     return user;
-  }
+  } */
 }

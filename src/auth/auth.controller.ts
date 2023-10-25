@@ -9,25 +9,25 @@ import { ApiOperation, ApiTags } from '@nestjs/swagger';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  // @Post('register')
-  // @ApiOperation({
-  //   summary: 'Register a new user',
-  // })
-  // registerUser(@Body() registerAuthDto: RegisterAuthDto) {
-  //   return this.authService.register(registerAuthDto);
-  // }
-
-  // @Post('login')
-  // @ApiOperation({
-  //   summary: 'Login an existing user',
-  // })
-  // loginUser(@Body() loginAuthDto: LoginAuthDto) {
-  //   return this.authService.login(loginAuthDto);
-  // }
-
-
-
   @Post('register')
+  @ApiOperation({
+    summary: 'Register a new user',
+  })
+  registerUser(@Body() registerAuthDto: RegisterAuthDto) {
+    return this.authService.register(registerAuthDto);
+  }
+
+  @Post('login')
+  @ApiOperation({
+    summary: 'Login an existing user',
+  })
+  loginUser(@Body() loginAuthDto: LoginAuthDto) {
+    return this.authService.login(loginAuthDto);
+  }
+
+
+
+  /* @Post('register')
   @ApiOperation({
     summary: 'Register a new user',
   })
@@ -49,7 +49,7 @@ export class AuthController {
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.UNAUTHORIZED);
     }
-  }
+  } */
 
 
 

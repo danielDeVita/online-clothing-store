@@ -16,10 +16,15 @@ export class ProductService {
     return newProduct.save();
   }
 
-  async findAll() {
-    return await this.productModel
-      .find()
-      .populate('category', { _id: 0, __v: 0 });
+  async findAll(size: string) {
+    if (size) {
+      return await this.productModel
+        .find({ size })
+        .populate('category', { _id: 0, __v: 0 });
+    } else
+      return await this.productModel
+        .find()
+        .populate('category', { _id: 0, __v: 0 });
   }
 
   async findOne(id: string) {

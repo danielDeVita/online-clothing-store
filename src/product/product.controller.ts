@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -32,14 +33,15 @@ export class ProductController {
     return this.productService.create(createProductDto);
   }
 
-  @UseGuards(AuthGuard)
+  /* @UseGuards(AuthGuard) */
+  @UseGuards(JwtAuthGuard)
   @Get()
   @ApiOperation({
     summary: 'Fetch all products',
     description: 'This API is used for fetching all products',
   })
-  findAll() {
-    return this.productService.findAll();
+  findAll(@Query('size') size?: string) {
+    return this.productService.findAll(size);
   }
 
   @Get(':id')
