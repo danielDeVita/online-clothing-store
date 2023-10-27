@@ -8,7 +8,7 @@ export class Order extends Document {
   @Prop({ type: Types.ObjectId, ref: User.name })
   user: User | Types.ObjectId;
   @Prop({ type: [{ type: Types.ObjectId, ref: Product.name }] })
-  products: Types.Array<Product>;
+  products: Types.Array<Product | Types.ObjectId>;
   @Prop()
   total: number;
   @Prop({
