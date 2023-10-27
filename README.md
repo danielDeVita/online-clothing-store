@@ -12,9 +12,48 @@ The Online Clothing Store API is a RESTful API built with Nest.js, MongoDB, and 
 
 ## DB Architecture
 
+- **Database Type:** MongoDB
 - One user can have many orders
 - Many orders can have many products
 - Many products have one category
+
+### User
+
+- **Description:** Represents a user in the system.
+- **Properties:**
+  - `username`: username of the user (Type: String)
+  - `email`: email address of the user (Type: String)
+  - `age`: age of the user (Type: Number)
+
+### Product
+
+- **Description:** Represents a product in the system.
+- **Properties:**
+  - `name`: name of the product (Type: String)
+  - `description`: description of the product (Type: String)
+  - `size`: size of the product (Type: String)
+  - `color`: color of the product (Type: String)
+  - `price`: price of the product (Type: Number)
+  - `stock`: stock quantity of the product (Type: Number)
+  - `image`: URL of the product image (Type: String)
+  - `brand`: brand name of the product (Type: String)
+  - `category`: reference to the category of the product (Type: ObjectID)
+
+### Category
+
+- **Description:** Represents a category to which a product can belong.
+- **Properties:**
+  - `name`: name of the category (Type: String)
+  - `description`: description of the category (Type: String)
+  
+### Order
+
+- **Description:** Represents an order placed by a user.
+- **Properties:**
+  - `user`: reference to the user who placed the order (Type: ObjectID)
+  - `products`: list of products included in the order (Type: Array of ObjectIDs)
+  - `totalPrice`: total price of the order (Type: Number)
+  - `status`: status of the order (Type: String)
 
 ## Prerequisites
 
