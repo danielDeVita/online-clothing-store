@@ -8,7 +8,7 @@ export class Product extends Document {
   name: string;
   @Prop()
   description: string;
-  @Prop({ index: true })
+  @Prop(/* { index: true } */)
   size: string;
   @Prop()
   color: string;
@@ -25,3 +25,5 @@ export class Product extends Document {
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
+
+ProductSchema.index({ size: 'text' });
