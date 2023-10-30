@@ -16,7 +16,7 @@ import { CategoryModule } from './category/category.module';
     OrderModule,
     CartModule,
     AuthModule,
-    MongooseModule.forRoot('mongodb://localhost/onlineClothingStore'),
+    MongooseModule.forRoot('mongodb://127.0.0.1/onlineClothingStore'),
     CategoryModule,
   ],
   controllers: [AppController],
