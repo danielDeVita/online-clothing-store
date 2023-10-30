@@ -1,9 +1,9 @@
 version: '3'
 
 services:
-  nestapp:
-    container_name: nestapp
-    image: nestapp:1.0.0
+  online-clothing-store:
+    container_name: online-clothing-store
+    image: online-clothing-store:1.0.0
     build:
       context: .
       dockerfile: Dockerfile
