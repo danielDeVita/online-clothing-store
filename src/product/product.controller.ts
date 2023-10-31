@@ -8,7 +8,10 @@ import {
   Delete,
   UseGuards,
   Query,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
@@ -27,8 +30,12 @@ export class ProductController {
     summary: 'Create a new product',
     description: 'This api used to create a new product in the database',
   })
-  create(@Body() createProductDto: CreateProductDto) {
-    return this.productService.create(createProductDto);
+  @UseInterceptors(FileInterceptor('image'))
+  create(
+    @Body() createProductDto: CreateProductDto,
+    @UploadedFile() file: Express.Multer.File,
+  ) {
+    return this.productService.create(createProductDto, file);
   }
 
   /* @UseGuards(AuthGuard) */

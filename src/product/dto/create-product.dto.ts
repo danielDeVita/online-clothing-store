@@ -1,5 +1,11 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNumber, IsPositive, IsString, IsMongoId } from 'class-validator';
+import {
+  IsNumber,
+  IsPositive,
+  IsString,
+  IsMongoId,
+  IsNotEmpty,
+} from 'class-validator';
 
 export class CreateProductDto {
   @ApiProperty()
@@ -15,15 +21,18 @@ export class CreateProductDto {
   @IsString()
   readonly color: string;
   @ApiProperty()
-  @IsNumber()
-  @IsPositive()
+  // @IsNumber()
+  // @IsPositive()
+  @IsNotEmpty()
   readonly price: number;
   @ApiProperty()
-  @IsNumber()
+  // @IsNumber()
+  @IsNotEmpty()
   readonly stock: number;
   @ApiProperty()
-  @IsString()
-  readonly image: string;
+  // @IsString()
+  // @IsNotEmpty()
+  readonly image: any; //antes era string
   @ApiProperty()
   @IsString()
   readonly brand: string;

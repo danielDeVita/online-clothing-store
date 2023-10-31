@@ -4,15 +4,22 @@ import { InjectModel } from '@nestjs/mongoose';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product } from './entities/product.entity';
+import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 
 @Injectable()
 export class ProductService {
   constructor(
     @InjectModel(Product.name) private productModel: Model<Product>,
+    private readonly cloudinaryService: CloudinaryService,
   ) {}
 
-  async create(createProductDto: CreateProductDto) {
-    const newProduct = await this.productModel.create(createProductDto);
+  async create(createProductDto: CreateProductDto, file: Express.Multer.File) {
+    const uploadedImage = await this.uploadToCloudinary(file);
+
+    const newProduct = await this.productModel.create({
+      image: uploadedImage.secure_url,
+      ...createProductDto,
+    });
     return newProduct.save();
   }
 
@@ -54,5 +61,9 @@ export class ProductService {
     if (!product)
       throw new NotFoundException(`Product with id ${id} not found`);
     return { message: 'Product deleted', product };
+  }
+
+  async uploadToCloudinary(file: Express.Multer.File) {
+    return await this.cloudinaryService.uploadFile(file);
   }
 }

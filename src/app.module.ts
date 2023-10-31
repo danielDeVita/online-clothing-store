@@ -9,6 +9,7 @@ import { CartModule } from './cart/cart.module';
 import { AuthModule } from './auth/auth.module';
 import { CategoryModule } from './category/category.module';
 import { ConfigModule } from '@nestjs/config';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { ConfigModule } from '@nestjs/config';
       `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.a9jnlqj.mongodb.net/${process.env.DB_NAME}`,
     ),
     CategoryModule,
+    CloudinaryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
