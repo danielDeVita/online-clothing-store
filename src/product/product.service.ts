@@ -9,7 +9,8 @@ import { CloudinaryService } from 'src/cloudinary/cloudinary.service';
 @Injectable()
 export class ProductService {
   constructor(
-    @InjectModel(Product.name) private productModel: Model<Product>,
+    @InjectModel(Product.name)
+    private productModel: Model<Product>,
     private readonly cloudinaryService: CloudinaryService,
   ) {}
 
@@ -30,36 +31,40 @@ export class ProductService {
           $text: { $search: size, $caseSensitive: true, $language: 'en' },
         })
         .populate('category', { _id: 0, __v: 0 });
-    } else
-      return await this.productModel
-        .find()
-        .populate('category', { _id: 0, __v: 0 });
+    } else return await this.productModel.find().populate('category', { _id: 0, __v: 0 });
   }
 
   async findOne(id: string) {
-    const product = await this.productModel
-      .findById(id)
-      .populate('category', { _id: 0, __v: 0 });
-    if (!product)
-      throw new NotFoundException(`Product with id ${id} not found`);
+    const product = await this.productModel.findById(id).populate('category', { _id: 0, __v: 0 });
+    if (!product) throw new NotFoundException(`Product with id ${id} not found`);
     return product;
   }
 
-  async update(id: string, updateProductDto: UpdateProductDto) {
+  async update(id: string, updateProductDto: UpdateProductDto, file?: Express.Multer.File) {
+    let uploadedImage;
+    if (file) {
+      uploadedImage = await this.uploadToCloudinary(file);
+    } else {
+      let foundProduct = await this.findOne(id);
+      uploadedImage = foundProduct.image;
+    }
+
     const product = await this.productModel.findByIdAndUpdate(
       id,
-      updateProductDto,
+      {
+        image: uploadedImage.secure_url,
+        ...updateProductDto,
+      },
       { new: true },
     );
-    if (!product)
-      throw new NotFoundException(`Product with id ${id} not found`);
+
+    if (!product) throw new NotFoundException(`Product with id ${id} not found`);
     return product;
   }
 
   async remove(id: string) {
     const product = await this.productModel.findByIdAndDelete(id);
-    if (!product)
-      throw new NotFoundException(`Product with id ${id} not found`);
+    if (!product) throw new NotFoundException(`Product with id ${id} not found`);
     return { message: 'Product deleted', product };
   }
 

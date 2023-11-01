@@ -64,8 +64,13 @@ export class ProductController {
     summary: 'Update an existing product',
     description: 'This API is used update an existing product',
   })
-  update(@Param('id') id: string, @Body() updateProductDto: UpdateProductDto) {
-    return this.productService.update(id, updateProductDto);
+  @UseInterceptors(FileInterceptor('image'))
+  update(
+    @Param('id') id: string,
+    @Body() updateProductDto: UpdateProductDto,
+    @UploadedFile() file?: Express.Multer.File,
+  ) {
+    return this.productService.update(id, updateProductDto, file);
   }
 
   @Delete(':id')
