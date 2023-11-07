@@ -14,11 +14,16 @@ export class ProductService {
     private readonly cloudinaryService: CloudinaryService,
   ) {}
 
-  async create(createProductDto: CreateProductDto, file: Express.Multer.File) {
-    const uploadedImage = await this.uploadToCloudinary(file);
+  async create(createProductDto: CreateProductDto, file?: Express.Multer.File) {
+    let uploadedImage: string;
+    if (file) {
+      uploadedImage = (await this.uploadToCloudinary(file)).secure_url;
+    }
 
     const newProduct = await this.productModel.create({
-      image: uploadedImage.secure_url,
+      image: file
+        ? uploadedImage
+        : 'https://st.depositphotos.com/2209782/2833/i/600/depositphotos_28336025-stock-photo-clothes-on-a-rack.jpg',
       ...createProductDto,
     });
     return newProduct.save();

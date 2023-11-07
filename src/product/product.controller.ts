@@ -33,7 +33,7 @@ export class ProductController {
   @UseInterceptors(FileInterceptor('image'))
   create(
     @Body() createProductDto: CreateProductDto,
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile() file?: Express.Multer.File,
   ) {
     return this.productService.create(createProductDto, file);
   }

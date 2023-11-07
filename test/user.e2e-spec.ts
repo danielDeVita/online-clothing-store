@@ -84,7 +84,7 @@ describe('UserController (e2e)', () => {
     await request(app.getHttpServer()).patch(`/user/${userID}`).send(updateUserDto).expect(200);
   });
 
-  it('should get an error due to bad id to /PATCH/:id', async () => {
+  it('should get an error due to bad id to /PATCH user/:id', async () => {
     const updateUserDto = {
       lastName: 'some last name',
     };
@@ -101,7 +101,7 @@ describe('UserController (e2e)', () => {
 
   it('should return 404 due to inexisting user to /DELETE user/:id', async () => {
     const response = await request(app.getHttpServer()).delete('/user/154021fc52b74c6d41d54a07'); // not a real id
-    expect(response.status).toBe(404);
+    expect(response.status).toEqual(404);
   });
 
   afterAll(async () => {
