@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Types } from 'mongoose';
-import { Product } from 'src/product/entities/product.entity';
-import { User } from 'src/user/entities/user.entity';
+import { Product } from '../../product/entities/product.entity';
+import { User } from '../../user/entities/user.entity';
 
 @Schema()
 export class Order extends Document {

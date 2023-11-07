@@ -9,7 +9,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { Order } from './entities/order.entity';
-import { Product } from 'src/product/entities/product.entity';
+import { Product } from '../product/entities/product.entity';
 
 @Injectable()
 export class OrderService {

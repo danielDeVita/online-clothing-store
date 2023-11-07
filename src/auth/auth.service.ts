@@ -8,7 +8,7 @@ import { Model } from 'mongoose';
 import { LoginAuthDto } from './dto/login-auth.dto';
 import { RegisterAuthDto } from './dto/register-auth.dto';
 import { InjectModel } from '@nestjs/mongoose';
-import { User } from 'src/user/entities/user.entity';
+import { User } from '../user/entities/user.entity';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import TokenManager from './tokenManager';
