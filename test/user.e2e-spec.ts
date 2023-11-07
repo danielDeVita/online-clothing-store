@@ -61,6 +61,13 @@ describe('UserController (e2e)', () => {
     expect(response.header).toHaveProperty('content-type');
   });
 
+  it('should not authorize to get users from /GET user due to not real token', async () => {
+    await request(app.getHttpServer())
+      .get('/user')
+      .set('Authorization', `Bearer bad token no good`)
+      .expect(401);
+  });
+
   it('should get one user by id from /GET user/:id', async () => {
     await request(app.getHttpServer()).get(`/user/${userID}`).expect(200);
   });
