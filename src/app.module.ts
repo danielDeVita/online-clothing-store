@@ -5,7 +5,6 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { ProductModule } from './product/product.module';
 import { OrderModule } from './order/order.module';
-import { CartModule } from './cart/cart.module';
 import { AuthModule } from './auth/auth.module';
 import { CategoryModule } from './category/category.module';
 import { ConfigModule } from '@nestjs/config';
@@ -17,7 +16,6 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
     UserModule,
     ProductModule,
     OrderModule,
-    CartModule,
     AuthModule,
     // MongooseModule.forRoot('mongodb://127.0.0.1/onlineClothingStore'),
     MongooseModule.forRoot(
