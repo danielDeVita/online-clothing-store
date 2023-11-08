@@ -1,22 +1,27 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProductController } from './product.controller';
 import { ProductService } from './product.service';
+import { CreateProductDto } from './dto/create-product.dto';
+import { UpdateProductDto } from './dto/update-product.dto';
 
 describe('ProductController', () => {
   let controller: ProductController;
 
   const mockProductService = {
-    create: jest.fn((dto) => dto),
-    update: jest.fn((id, dto) => ({
+    create: jest.fn((dto: CreateProductDto) => dto),
+    update: jest.fn((id: string, dto: UpdateProductDto) => ({
       id,
       ...dto,
     })),
     findAll: jest.fn(() => [mockProduct, mockProduct]),
-    findOne: jest.fn((id) => ({ id, ...mockProduct })),
-    remove: jest.fn((id) => ({ message: 'Product deleted', product: { id, ...mockProduct } })),
+    findOne: jest.fn((id: string) => ({ id, ...mockProduct })),
+    remove: jest.fn((id: string) => ({
+      message: 'Product deleted',
+      product: { id, ...mockProduct },
+    })),
   };
 
-  const mockProduct = {
+  const mockProduct: CreateProductDto = {
     name: 'test name product',
     description: 'test description product',
     size: 'large',
@@ -27,7 +32,7 @@ describe('ProductController', () => {
     brand: 'some brand test',
     category: '1',
   };
-  const mockUpdateProduct = {
+  const mockUpdateProduct: UpdateProductDto = {
     color: 'red',
     price: 5,
   };

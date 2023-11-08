@@ -1,22 +1,24 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 describe('UserService', () => {
   let controller: UserController;
 
   const mockUserService = {
-    create: jest.fn((dto) => dto),
-    update: jest.fn((id, dto) => ({
+    create: jest.fn((dto: CreateUserDto) => dto),
+    update: jest.fn((id: string, dto: UpdateUserDto) => ({
       id,
       ...dto,
     })),
     findAll: jest.fn(() => [mockUser, mockUser]),
-    findOne: jest.fn((id) => ({ id, ...mockUser })),
-    remove: jest.fn((id) => ({ message: 'User deleted', user: { id, ...mockUser } })),
+    findOne: jest.fn((id: string) => ({ id, ...mockUser })),
+    remove: jest.fn((id: string) => ({ message: 'User deleted', user: { id, ...mockUser } })),
   };
 
-  const mockUser = {
+  const mockUser: CreateUserDto = {
     email: 'test@mail.com',
     password: '12345',
     firstName: 'firstName',
@@ -24,7 +26,7 @@ describe('UserService', () => {
     role: 'admin',
   };
 
-  const mockUpdateUser = {
+  const mockUpdateUser: UpdateUserDto = {
     email: 'another@email.com',
     role: 'user',
   };
