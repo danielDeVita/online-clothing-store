@@ -1,0 +1,23 @@
+name: Daniel De Vita Online Clothing Store
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+            node-version: 18
+      - name: Install dependencies
+        run: npm install
+      - name: Lint
+        run: npm run lint
+
+      
