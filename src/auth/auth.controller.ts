@@ -1,4 +1,4 @@
-import { Controller, Post, Body, HttpException, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginAuthDto } from './dto/login-auth.dto';
 import { RegisterAuthDto } from './dto/register-auth.dto';
@@ -25,8 +25,6 @@ export class AuthController {
     return this.authService.login(loginAuthDto);
   }
 
-
-
   /* @Post('register')
   @ApiOperation({
     summary: 'Register a new user',
@@ -50,7 +48,4 @@ export class AuthController {
       throw new HttpException(error.message, HttpStatus.UNAUTHORIZED);
     }
   } */
-
-
-
 }

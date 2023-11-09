@@ -6,7 +6,6 @@ import {
   Patch,
   Param,
   Delete,
-  UseGuards,
   Query,
   UseInterceptors,
   UploadedFile,
@@ -15,9 +14,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { AuthGuard } from 'src/auth/authGuard';
+import { ApiTags, ApiOperation } from '@nestjs/swagger';
 
 /* @ApiBearerAuth() */
 @ApiTags('Product')

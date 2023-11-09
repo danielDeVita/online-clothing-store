@@ -1,7 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
-  IsNumber,
-  IsPositive,
   IsString,
   IsMongoId,
   IsNotEmpty,

@@ -1,15 +1,15 @@
 import * as crypto from 'crypto';
 
-interface Options {
-  expiresIn?: number;
-}
+// interface Options {
+//   expiresIn?: number;
+// }
 
-interface SignInput {
-  //not used for typing values
-  payload: object;
-  secret: string;
-  options?: Options;
-}
+// interface SignInput {
+//   //not used for typing values
+//   payload: object;
+//   secret: string;
+//   options?: Options;
+// }
 
 const defaultOptions = {
   expiresIn: 8.64e7, // 1 day
@@ -17,7 +17,7 @@ const defaultOptions = {
 
 class TokenManager {
   private static createSignature({
-    secret,
+    // secret,
     encodedHeader,
     encodedPayload,
   }: {
