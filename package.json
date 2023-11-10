@@ -21,6 +21,7 @@
     "test:e2e:watch": "jest --config ./test/jest-e2e.json --watch"
   },
   "dependencies": {
+    "@nestjs/cli": "^9.0.0",
     "@nestjs/common": "^9.0.0",
     "@nestjs/config": "^3.1.1",
     "@nestjs/core": "^9.0.0",
@@ -43,7 +44,7 @@
     "streamifier": "^0.1.1"
   },
   "devDependencies": {
-    "@nestjs/cli": "^9.0.0",
+    
     "@nestjs/schematics": "^9.0.0",
     "@nestjs/testing": "^9.4.3",
     "@types/bcrypt": "^5.0.0",
